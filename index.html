@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
+        /* Using a style tag for the complex gradient and custom pseudo-elements which are not possible with standard Tailwind classes. */
         body {
+            /* Fallback for older browsers */
             background-color: #12080e;
+            /* The user-specified gradient, corrected for a smooth, beautiful transition */
             background-image: linear-gradient(to bottom,
                 #d7a7c7 0%, #d095bc 5%, #c884b1 10%, #c67fae 15%, #c072a6 20%,
                 #b8619b 25%, #b04f90 30%, #9e4781 40%, #8d3f73 50%, #7b3765 60%,
@@ -30,6 +33,7 @@
             font-family: 'Lato', sans-serif;
         }
 
+        /* Custom button shine effect on hover */
         .mood-btn::before {
             content: '';
             position: absolute;
@@ -58,7 +62,7 @@
         .button-grid .mood-btn:nth-child(3) { /* The long middle button */
             grid-column: 1 / span 2;
         }
-    </style>
+</style>
 </head>
 <body class="font-body bg-no-repeat bg-cover bg-fixed min-h-screen flex items-center justify-center text-white p-4 sm:p-6">
 
