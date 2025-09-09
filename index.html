@@ -1,299 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Babygirl, Maggie</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Babygirl, Maggie</title>
 
-    <!-- Chosen Palette: Custom "Amethyst to Midnight" Gradient -->
-    <!-- Application Structure Plan: A single-view, centralized interactive experience. The user is presented with a clear emotional prompt ("In case you are...") and a set of corresponding emotional states as buttons. Clicking a button reveals a personalized, supportive message in a dedicated display area below. This direct cause-and-effect structure is the most intuitive and user-friendly approach, allowing Maggie to instantly receive comfort or motivation without any navigation or cognitive load. The sixth button provides a discreet, alternative function (opening a URL) that is separate but visually consistent. -->
-    <!-- Visualization & Content Choices: Report Info: User's feelings (Upset, Lonely, etc.) -> Goal: Provide emotional support -> Viz/Presentation Method: Dynamically updated text block -> Interaction: Button click triggers a random, personalized message with a random animation -> Justification: This provides a direct, engaging, and emotionally resonant experience. The randomness in both content and animation ensures the page feels fresh and alive with each use. The "Horny" button uses a URL redirect as it serves a different, action-oriented purpose. -> Library/Method: Vanilla JS for logic, Animate.css for animations. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            background-color: #12080e;
+            background-image: linear-gradient(to bottom,
+                #d7a7c7 0%, #d095bc 5%, #c884b1 10%, #c67fae 15%, #c072a6 20%,
+                #b8619b 25%, #b04f90 30%, #9e4781 40%, #8d3f73 50%, #7b3765 60%,
+                #6a2f56 70%, #582848 80%, #462039 85%, #35182b 90%, #23101d 95%,
+                #12080e 98%, #000000 100%
+            );
+        }
 
-    <style>
-        /* Using a style tag for the complex gradient and custom pseudo-elements which are not possible with standard Tailwind classes. */
-        body {
-            /* Fallback for older browsers */
-            background-color: #12080e;
-            /* The user-specified gradient, corrected for a smooth, beautiful transition */
-            background-image: linear-gradient(to bottom,
-                #d7a7c7 0%, #d095bc 5%, #c884b1 10%, #c67fae 15%, #c072a6 20%,
-                #b8619b 25%, #b04f90 30%, #9e4781 40%, #8d3f73 50%, #7b3765 60%,
-                #6a2f56 70%, #582848 80%, #462039 85%, #35182b 90%, #23101d 95%,
-                #12080e 98%, #000000 100%
-            );
-        }
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
 
-        .font-heading {
-            font-family: 'Playfair Display', serif;
-        }
+        .font-body {
+            font-family: 'Lato', sans-serif;
+        }
 
-        .font-body {
-            font-family: 'Lato', sans-serif;
-        }
+        .mood-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-        /* Custom button shine effect on hover */
-        .mood-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-        }
+        .mood-btn:hover::before {
+            left: 100%;
+        }
 
-        .mood-btn:hover::before {
-            left: 100%;
-        }
-    </style>
+        /* Custom grid for the new layout */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto auto auto;
+            gap: 1rem; /* Adjust gap as needed */
+            max-width: 500px; /* Max width for the grid container */
+            margin: 0 auto; /* Center the grid */
+        }
+
+        .button-grid .mood-btn:nth-child(3) { /* The long middle button */
+            grid-column: 1 / span 2;
+        }
+    </style>
 </head>
 <body class="font-body bg-no-repeat bg-cover bg-fixed min-h-screen flex items-center justify-center text-white p-4 sm:p-6">
 
-    <main class="w-full max-w-4xl mx-auto text-center">
-        <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12 text-shadow-lg">
-            In case you are...
-        </h1>
+    <main class="w-full max-w-4xl mx-auto text-center">
+        <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12 text-shadow-lg">
+            In case you are...
+        </h1>
 
-        <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mb-10 sm:mb-16">
-            <button class="mood-btn" data-action="upset">Upset</button>
-            <button class="mood-btn" data-action="lonely">Lonely</button>
-            <button class="mood-btn" data-action="crash">About to crash out</button>
-            <button class="mood-btn" data-action="motivation">Needing motivation</button>
-            <button class="mood-btn" data-action="horny">Horny</button>
-        </div>
+        <div class="button-grid mb-10 sm:mb-16">
+            <button class="mood-btn" data-action="upset">Upset</button>
+            <button class="mood-btn" data-action="lonely">Lonely</button>
+            <button class="mood-btn" data-action="horny">Horny</button>
+            <button class="mood-btn" data-action="crash">About to crash out</button>
+            <button class="mood-btn" data-action="motivation">Needing motivation</button>
+        </div>
 
-        <div id="result-display" class="min-h-[150px] flex items-center justify-center transition-opacity duration-500 ease-in-out opacity-0">
-            <!-- Messages will appear here -->
-        </div>
-    </main>
-    
+        <div id="result-display" class="min-h-[150px] flex items-center justify-center transition-opacity duration-500 ease-in-out opacity-0">
+                    </div>
+    </main>
+    
 <a href="https://viper-open-centrally.ngrok-free.app/">Arthur's Playground</a>
-    
-    <script>
-        // --- CONTENT POOLS ---
-        // These are the personalized messages that will be randomly selected for each button.
-        const contentPools = {
-            upset: [
-                "My sweet Maggie, whatever is wrong, just know that my arms are a safe place for you, always. Let me hold you until it's better.",
-                "I'm so sorry you're feeling upset, babygirl. Remember that every storm passes. You've gotten through everything life has thrown at you, and you'll get through this too. I'm right here.",
-                "Your feelings are valid, my love. Don't ever think you have to hide them. Talk to me, let it out. We're a team, you and me against the world.",
-                "Roses are red, violets are blue, I hate seeing you sad, so what can I do? Seriously, tell me how I can make you smile.",
-                "Hey, remember that time with Chandler at the park? Think of his little laugh. I hope that brings a little light to your heart right now. I love you.",
-                "It's okay to not be okay. Just know that you're the strongest woman I know, and my love for you is bigger than any problem."
-            ],
-            lonely: [
-                "Even if you feel alone in a room, just know you're never alone in my heart. I'm always thinking of you, baby.",
-                "Five years, on and off, but one thing is constant: you're my person. I'm always just a text or a call away. You're never truly alone.",
-                "I may not be beside you right now, but close your eyes and feel my love wrapping around you like a warm blanket. I'm with you in spirit, always.",
-                "Are you a Wi-Fi signal? Because I'm feeling a strong connection, even from a distance. Missing you, my love.",
-                "Remember, it's me, you, and Chandler. A little family of three. A perfect team. You are the center of our universe, never forget that.",
-                "Loneliness is just a feeling, not a fact. The fact is, you are loved so deeply by me and our little boy."
-            ],
-            crash: [
-                "Hey, superwoman. It's okay to hang up the cape. You give 110% every single day. Please, let yourself rest. The world can wait. I've got you.",
-                "You're allowed to be tired. You're allowed to feel like you're at your limit. You're human, my amazing, hardworking human. Let me take some of the weight.",
-                "Baby, you are the engine that keeps our family running. But even the strongest engines need to refuel. Please take a moment for yourself. You've more than earned it.",
-                "Stop, drop, and let me pamper you. You've done enough. Your only job right now is to breathe and let me take care of everything.",
-                "I see how hard you're working, how much you're juggling. It's okay to drop a ball or two. I'll be there to help you pick them up. Always."
-            ],
-            motivation: [
-                "I know the hours are long and the work is hard, but think about the beautiful future we're building for our family. Every bit of effort is for us, and I'm so grateful.",
-                "Remember your 'why'. It's for that little boy with your eyes. It's for the home we're creating. It's for the love that holds us all together. You've got this.",
-                "You are a force of nature, Maggie. You can achieve anything you set your mind to. I believe in you more than words can say.",
-                "Just a reminder from your biggest fan: You're brilliant, you're capable, and you're going to crush it. I'm so incredibly proud to be your man.",
-                "Look how far you've come. Look at everything you've already accomplished. You're an inspiration, baby. Keep shining.",
-                "Let's do this. Let's build our empire, you and me. One day at a time. I'm right here with you, every step of the way.",
-				"Doubting your worth? Maggie, you are priceless. To me, to Chandler, to this family... you are everything. Your worth is infinite.",
-                "Don't you ever, for one second, doubt the incredible woman you are. You're a phenomenal mother, a loving partner, and the hardest worker I know. You are more than enough.",
-                "If you could see yourself through my eyes, you'd see pure magic. You built a home for us, a life for our son. That's a legacy of immeasurable worth.",
-                "You're not just 'one in a million,' babygirl. You're a once-in-a-lifetime. My once-in-a-lifetime.",
-                "Your value isn't measured by your productivity or how you feel on a tough day. It's in your heart, your laugh, the way you love our son. It's immeasurable.",
-                "Quote from me to you: 'She is worth more than rubies.' And it's true. You are my greatest treasure."
-            ]
-        };
+    
+    <script>
+        const contentPools = {
+            upset: [
+                "My sweet Maggie, whatever is wrong, just know that my arms are a safe place for you, always. Let me hold you until it's better.",
+                "I'm so sorry you're feeling upset, babygirl. Remember that every storm passes. You've gotten through everything life has thrown at you, and you'll get through this too. I'm right here.",
+                "Your feelings are valid, my love. Don't ever think you have to hide them. Talk to me, let it out. We're a team, you and me against the world.",
+                "Roses are red, violets are blue, I hate seeing you sad, so what can I do? Seriously, tell me how I can make you smile.",
+                "Hey, remember that time with Chandler at the park? Think of his little laugh. I hope that brings a little light to your heart right now. I love you.",
+                "It's okay to not be okay. Just know that you're the strongest woman I know, and my love for you is bigger than any problem."
+            ],
+            lonely: [
+                "Even if you feel alone in a room, just know you're never alone in my heart. I'm always thinking of you, baby.",
+                "Five years, on and off, but one thing is constant: you're my person. I'm always just a text or a call away. You're never truly alone.",
+                "I may not be beside you right now, but close your eyes and feel my love wrapping around you like a warm blanket. I'm with you in spirit, always.",
+                "Are you a Wi-Fi signal? Because I'm feeling a strong connection, even from a distance. Missing you, my love.",
+                "Remember, it's me, you, and Chandler. A little family of three. A perfect team. You are the center of our universe, never forget that.",
+                "Loneliness is just a feeling, not a fact. The fact is, you are loved so deeply by me and our little boy."
+            ],
+            crash: [
+                "Hey, superwoman. It's okay to hang up the cape. You give 110% every single day. Please, let yourself rest. The world can wait. I've got you.",
+                "You're allowed to be tired. You're allowed to feel like you're at your limit. You're human, my amazing, hardworking human. Let me take some of the weight.",
+                "Baby, you are the engine that keeps our family running. But even the strongest engines need to refuel. Please take a moment for yourself. You've more than earned it.",
+                "Stop, drop, and let me pamper you. You've done enough. Your only job right now is to breathe and let me take care of everything.",
+                "I see how hard you're working, how much you're juggling. It's okay to drop a ball or two. I'll be there to help you pick them up. Always."
+            ],
+            motivation: [
+                "I know the hours are long and the work is hard, but think about the beautiful future we're building for our family. Every bit of effort is for us, and I'm so grateful.",
+                "Remember your 'why'. It's for that little boy with your eyes. It's for the home we're creating. It's for the love that holds us all together. You've got this.",
+                "You are a force of nature, Maggie. You can achieve anything you set your mind to. I believe in you more than words can say.",
+                "Just a reminder from your biggest fan: You're brilliant, you're capable, and you're going to crush it. I'm so incredibly proud to be your man.",
+                "Look how far you've come. Look at everything you've already accomplished. You're an inspiration, baby. Keep shining.",
+                "Let's do this. Let's build our empire, you and me. One day at a time. I'm right here with you, every step of the way.",
+                // Merged content from "Doubting your worth"
+                "Doubting your worth? Maggie, you are priceless. To me, to Chandler, to this family... you are everything. Your worth is infinite.",
+                "Don't you ever, for one second, doubt the incredible woman you are. You're a phenomenal mother, a loving partner, and the hardest worker I know. You are more than enough.",
+                "If you could see yourself through my eyes, you'd see pure magic. You built a home for us, a life for our son. That's a legacy of immeasurable worth.",
+                "You're not just 'one in a million,' babygirl. You're a once-in-a-lifetime. My once-in-a-lifetime.",
+                "Your value isn't measured by your productivity or how you feel on a tough day. It's in your heart, your laugh, the way you love our son. It's immeasurable.",
+                "Quote from me to you: 'She is worth more than rubies.' And it's true. You are my greatest treasure."
+            ]
+        };
 
-        // --- URL LIST FOR THE 6TH BUTTON ---
-        // VVVVVV  EDIT THIS LIST  VVVVVV
-        // Add, remove, or change the URLs below.
-        // Make sure each URL is in quotes "" and separated by a comma ,
-        const hornyUrls = [
-            "https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her",
-            "https://www.xvideos.com/video.uilvkfd0d06/blacked_diamond_has_secret_affair_with_her_bestie_s_hot_bf",
-            "https://www.xvideos.com/video.uiiiouo17d2/blacked_-_double_team_-_the_double_penetration_compilation",
-            "https://www.xvideos.com/video.ihcpembe974/riding_on_the_s_roll",
-            "https://www.xvideos.com/video.utpfmmd15b7/cock_gripping_pussy",
-            "https://www.xvideos.com/video.uhvdimo3e7f/tatted_slutty_hotwife_brenna_mckenna_gets_fucked_by_big_dick_lover_in_front_of_her_man",
-            "https://www.xvideos.com/video.itbvtab31dc/cumshots_compilation_2",
-            "https://www.xvideos.com/video.kfekpibad3e/best_cumshot_compilation_2021",
-            "https://www.xvideos.com/video.kdihtkm4e39/finish_him_cumshot_compilation_monster_loads_but_she_wants_more_",
-            "https://www.xvideos.com/video.kmlvuek612b/ccc_-_cuckold_cum_compilation",
-            "https://www.xvideos.com/video.uomividb74b/julesjordan.com_-_busty_in_all_the_right_places_payton_preslee_shows_dredd_she_can_handle_his_bbc",
-            "https://www.xvideos.com/video.uobfbvve825/filthykings_-_best_bbc_scenes_-_watch_these_babes_sucking_and_fucking_a_big_black_cock",
-            "https://www.xvideos.com/video.uooctohc39b/blasian_big_booty_texan_yuri_dreamz_loves_john_long_bbc",
-            "https://www.xvideos.com/video.hhhhttk7c87/pull_out_cumshots_compilation",
-            "https://www.xvideos.com/video.iuvhppv9ce8/blacked_raw_intense_hardcore_compilation",
-            "https://www.xvideos.com/video.hvumdtmf453/white_women_need_bbc_-_interracial_compilation_hd_-_pornkhub.com",
-            "https://www.xvideos.com/video.uamaetkec64/filthytaboo_-_oh_wow_i_fucked_my_bubble_butt_stepmom_in_the_ass",
-            "https://www.xvideos.com/video.ubvpelb82ac/busty_tiny_girlfriend_hops_up_on_the_could_and_blows_big_uncut_cock_facing_the_camera_cumswaps_with_boyfriend_",
-            "https://www.xvideos.com/video.hvdlkcv356f/olivia_austin_interracial_threesome_-_cuckold_sessions",
-            "https://www.xvideos.com/video.iufofeb9dc1/huge_titted_blonde_dp_by_big_black_cocks",
-            "https://www.xvideos.com/video.mepvpc4b80/pretty_chick_carter_cruise_gets_rammed_by_his_bfs_big_hard_cock",
-            "https://www.xvideos.com/video.iteifck26c7/tied_up_teen_gets_bbc_drill",
-            "https://www.xvideos.com/video.ufofokb6d02/ob_honey_1.90m_slim_japanese-brazilian_fucked_by_6_huge_dicks_then_drinks_their_p33_dap_dry_version_huge_gapes_atm_monster_cocks_ob414",
-            "https://www.xvideos.com/video.cucdpb1e0f/miley_may_takes_a_tremendous_black_dick",
-            "https://www.xvideos.com/video.upodabo37ca/anal_subtitled_my_stepbrother_gives_me_his_friend_with_a_big_cock_while_he_watches_us_and_records_everything.",
-            "https://www.xvideos.com/video.hliavcm8998/katy_jayne_tries_mandingo_s_bbc_first_time",
-            "https://www.xvideos.com/video.hppakicb040/mia_khalifas_first_big_black_cock",
-            "https://www.xvideos.com/video.bluvbo35fd/big_cock_and_huge_cumshot",
-            "https://www.xvideos.com/video.cbhmad005/hot_euro_mom_wamts_some_big_american_dick",
-            "https://www.xvideos.com/video.uvcubbh6347/filthypov_-_playful_busty_blonde_has_trouble_fitting_a_huge_cock_in_her_tight_pussy",
-            "https://www.xvideos.com/video.ktiufifb1f8/bangbros_-_riley_reid_that_s_her_name._watch_this_video_and_you_ll_never_forget.",
-            "https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her",
-            "https://www.xvideos.com/video.ibckubd8209/bangbros_-_wifey_angela_white_cheats_on_husband_with_the_black_plumber",
-            "https://www.xvideos.com/video.ulteavf7183/huge_17_spurts_cumshot",
-            "https://www.xvideos.com/video.uauomfod2bd/bombshell_aletta_ocean_moans_in_pleasure_as_danny_d_stretches_her_asshole_with_his_massive_cock",
-            "https://www.xvideos.com/video.kieioah9bc8/rk_prime_-_katrina_moreno_danny_d_-_sweater_seduction",
-            "https://www.xvideos.com/video.ucfolbmde3a/deeper._baddie_kendra_fucks_enemy_s_bf_in_revenge_threesome",
-            "https://www.xvideos.com/video.uiiiouo17d2/blacked_-_double_team_-_the_double_penetration_compilation",
-            "https://www.xvideos.com/video.uobfbvve825/filthykings_-_best_bbc_scenes_-_watch_these_babes_sucking_and_fucking_a_big_black_cock", 
-            "https://www.xvideos.com/video.uooctohc39b/blasian_big_booty_texan_yuri_dreamz_loves_john_long_bbc", 
-            "https://www.xvideos.com/video.hhhhttk7c87/pull_out_cumshots_compilation", 
-            "https://www.xvideos.com/video.iuvhppv9ce8/blacked_raw_intense_hardcore_compilation", 
-            "https://www.xvideos.com/video.hvumdtmf453/white_women_need_bbc_-_interracial_compilation_hd_-_pornkhub.com", 
-            "https://www.xvideos.com/video.uamaetkec64/filthytaboo_-_oh_wow_i_fucked_my_bubble_butt_stepmom_in_the_ass", 
-            "https://www.xvideos.com/video.ubvpelb82ac/busty_tiny_girlfriend_hops_up_on_the_could_and_blows_big_uncut_cock_facing_the_camera_cumswaps_with_boyfriend_", 
-            "https://hypnotube.com/video/your-first-gloryhole-visit-hypnodancer-40646.html",
-            "https://www.xvideos.com/video.hcupolbc9cf/134-sextermedia-full", 
-            "https://www.playvids.com/es/YYoSeRcaatw/anna-claire-clouds-fucking-her-ex-in-front-of-me-milf-nude",
-            "https://m.hellporno.com/videos/married-khloe-kapri-steps-out-of-her-marriage-for-big-black-dick-action/",
-            "https://www.porntrex.com/video/2514384/blonde-babe-dp-fucked-by-black-friends",
-            "https://xgroovy.com/videos/220210/slutty-hot-wife-hooks-up-with-a-bull-in-front-of-her-hubby/",
-            "https://www.xvideos.com/video.ublvdtmc3b2/my_best_friend_stole_my_girlfriend_isiah_maxwell_anna_claire_clouds_billy_boston", 
-            "https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her", 
-            "https://www.xvideos.com/video.uilvkfd0d06/blacked_diamond_has_secret_affair_with_her_bestie_s_hot_bf", 
-            "https://www.xvideos.com/video.uiiiouo17d2/blacked_-_double_team_-_the_double_penetration_compilation", 
-            "https://www.xvideos.com/video.ihcpembe974/riding_on_the_s_roll", 
-            "https://www.xvideos.com/video.utpfmmd15b7/cock_gripping_pussy", 
-            "https://www.xvideos.com/video.uhvdimo3e7f/tatted_slutty_hotwife_brenna_mckenna_gets_fucked_by_big_dick_lover_in_front_of_her_man", 
-            "https://www.xvideos.com/video.itbvtab31dc/cumshots_compilation_2", 
-            "https://www.xvideos.com/video.kfekpibad3e/best_cumshot_compilation_2021", 
-            "https://www.xvideos.com/video.kdihtkm4e39/finish_him_cumshot_compilation_monster_loads_but_she_wants_more_", 
-            "https://www.xvideos.com/video.kmlvuek612b/ccc_-_cuckold_cum_compilation",
-            "https://www.xvideos.com/video.uvfvbck53de/jason_luv_cream_pies_lena_the_plug",
-            "https://www.xvideos.com/video.ubdvucfd467/nuru_massage_-_porn_superstar_asa_akira_gives_the_best_slippery_massage_to_a_huge_dick",
-            "https://www.xvideos.com/video.otbmdtf3418/wife_s_sister_tells_me_to_take_off_the_condom_i_want_to_feel_you_cum_in_me_",
-            "https://www.xvideos.com/video.kbtaueke626/surprise_threesome_and_dp_for_adriana_chechik",
-            "https://www.xvideos.com/video.keuumbm3299/anal_sex_with_the_obedient_wife_of_a_friend",
-            "https://www.xvideos.com/video.kvdhtim957b/ava_courcelles_hot_threesome_with_husband_and_friend",
-            "https://www.xvideos.com/video.hctoeuoc6fc/vixen_ariana_marie_cheats_with_a_huge_cock",
-            "https://www.xvideos.com/video.hvftmaha760/vixen_lana_rhoades_has_sex_with_her_boss",
-            "https://www.xvideos.com/video.ccfmed10bd/petite_teen_facialized_by_bigcock",
-            "https://www.eporner.com/video-RSuP9PMjrR6/she-is-so-beautiful/", 
-	        "https://www.eporner.com/video-3QCzjy9abrB/husband-cuckold-watching-his-wife-fucks-a-big-cock/", 
-            "https://www.eporner.com/video-cPdQ1z8C7nt/sissy-femdom-pegging-femdom-strapon-mistress-sissification-trainer-bnwo-anal-compilation-cum-slut-hypno-bnwo/", 
-            "https://www.eporner.com/video-viJjFOVcToO/pmv-huge-dicks/", 
-            "https://www.eporner.com/video-l145JY0pZH6/giant-black-cocks-pmv/", 
-            "https://www.eporner.com/video-SBSZ1z6ThS6/let-bbc-penetrate-your-mind-joi/",
-            "https://www.eporner.com/video-viJjFOVcToO/pmv-huge-dicks/",
+        const hornyUrls = [
+            // Add your URLs here! Example:
+            // "https://example.com/url1",
+            // "https://example.com/url2"
+        ];
 
-            // Add more URLs here!
-        ];
-        // ^^^^^^  END OF EDITABLE LIST  ^^^^^^
+        const animations = [
+            'animate__fadeInUp', 'animate__fadeInDown', 'animate__fadeInLeft', 'animate__fadeInRight',
+            'animate__zoomIn', 'animate__bounceIn', 'animate__lightSpeedInRight', 'animate__rotateIn',
+            'animate__jackInTheBox', 'animate__rollIn'
+        ];
 
+        const buttonContainer = document.querySelector('.button-grid');
+        const resultDisplay = document.getElementById('result-display');
+        let currentMessageElement = null;
 
-        // --- ANIMATION LIST ---
-        // A pool of animation class names from Animate.css for variety
-        const animations = [
-            'animate__fadeInUp', 'animate__fadeInDown', 'animate__fadeInLeft', 'animate__fadeInRight',
-            'animate__zoomIn', 'animate__bounceIn', 'animate__lightSpeedInRight', 'animate__rotateIn',
-            'animate__jackInTheBox', 'animate__rollIn'
-        ];
+        function getRandomItem(arr) {
+            if (!arr || arr.length === 0) return null;
+            const randomIndex = Math.floor(Math.random() * arr.length);
+            return arr[randomIndex];
+        }
 
-        // --- JAVASCRIPT LOGIC ---
-        const buttonContainer = document.querySelector('.flex-wrap');
-        const resultDisplay = document.getElementById('result-display');
-        let currentMessageElement = null;
+        function showResult(action) {
+            const contentArray = contentPools[action];
+            if (!contentArray) return;
 
-        // Utility function to get a random item from any array
-        function getRandomItem(arr) {
-            if (!arr || arr.length === 0) return null;
-            const randomIndex = Math.floor(Math.random() * arr.length);
-            return arr[randomIndex];
-        }
+            const message = getRandomItem(contentArray);
+            const newAnimation = getRandomItem(animations);
 
-        // Function to display a new message
-        function showResult(action) {
-            const contentArray = contentPools[action];
-            if (!contentArray) return;
+            const p = document.createElement('p');
+            p.className = 'font-heading text-2xl sm:text-3xl italic leading-relaxed max-w-2xl';
+            p.innerHTML = message;
 
-            const message = getRandomItem(contentArray);
-            const newAnimation = getRandomItem(animations);
+            p.classList.add('animate__animated', newAnimation);
 
-            // Create the new message element
-            const p = document.createElement('p');
-            p.className = 'font-heading text-2xl sm:text-3xl italic leading-relaxed max-w-2xl';
-            p.innerHTML = message; // Use innerHTML to render any potential HTML in messages
+            resultDisplay.innerHTML = '';
+            resultDisplay.appendChild(p);
 
-            // Add animation classes
-            p.classList.add('animate__animated', newAnimation);
+            resultDisplay.classList.remove('opacity-0');
+            currentMessageElement = p;
+        }
 
-            // Clear previous content and append new
-            resultDisplay.innerHTML = '';
-            resultDisplay.appendChild(p);
+        buttonContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('button[data-action]');
+            if (!button) return;
 
-            // Fade in the result display
-            resultDisplay.classList.remove('opacity-0');
-            currentMessageElement = p;
-        }
+            const action = button.dataset.action;
 
-        // Main event listener for all buttons
-        buttonContainer.addEventListener('click', (e) => {
-            // Ensure a button was clicked and it has a data-action
-            const button = e.target.closest('button[data-action]');
-            if (!button) return;
+            if (action === 'horny') {
+                const randomUrl = getRandomItem(hornyUrls);
+                if (randomUrl && randomUrl.startsWith("http")) {
+                    window.open(randomUrl, '_blank');
+                } else {
+                    console.error("Invalid or placeholder URL selected.");
+                }
+                return;
+            }
 
-            const action = button.dataset.action;
+            if (!resultDisplay.classList.contains('opacity-0')) {
+                resultDisplay.classList.add('opacity-0');
+                resultDisplay.addEventListener('transitionend', function handleTransitionEnd() {
+                    showResult(action);
+                }, { once: true });
+            } else {
+                showResult(action);
+            }
+        });
 
-            // Special case for the 'horny' button
-            if (action === 'horny') {
-                const randomUrl = getRandomItem(hornyUrls);
-                // Important: window.open must be called directly in the user click event
-                // to avoid being blocked by pop-up blockers.
-                if (randomUrl && randomUrl.startsWith("http")) {
-                    window.open(randomUrl, '_blank');
-                } else {
-                    console.error("Invalid or placeholder URL selected.");
-                }
-                return; // Stop further execution
-            }
-
-            // Logic for all other buttons
-            // If a message is already visible, fade it out first
-            if (!resultDisplay.classList.contains('opacity-0')) {
-                resultDisplay.classList.add('opacity-0');
-
-                // Wait for the fade-out transition to finish before showing the new message
-                resultDisplay.addEventListener('transitionend', function handleTransitionEnd() {
-                    showResult(action);
-                }, { once: true }); // {once: true} auto-removes the listener after it runs
-            } else {
-                // If no message is visible, just show the new one
-                showResult(action);
-            }
-        });
-
-        // Add the shared button classes via JS to keep HTML cleaner
-        document.querySelectorAll('button[data-action]').forEach(button => {
-            button.className = 'mood-btn relative overflow-hidden z-10 py-3 px-6 sm:py-4 sm:px-8 text-base sm:text-lg font-semibold tracking-wider uppercase rounded-full border-2 border-white/60 bg-transparent text-white transition-all duration-300 ease-in-out hover:border-white hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-100';
-        });
-    </script>
+        document.querySelectorAll('button[data-action]').forEach(button => {
+            button.className = 'mood-btn relative overflow-hidden z-10 py-3 px-6 sm:py-4 sm:px-8 text-base sm:text-lg font-semibold tracking-wider uppercase rounded-full border-2 border-white/60 bg-transparent text-white transition-all duration-300 ease-in-out hover:border-white hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-100';
+        });
+    </script>
 </body>
 </html>
