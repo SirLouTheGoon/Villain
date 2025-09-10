@@ -66,10 +66,25 @@
 <body class="font-body min-h-screen flex items-center justify-center text-white p-4 sm:p-6">
 
   <main class="w-full max-w-4xl mx-auto text-center">
+
+    <!-- Video Section -->
+    <div class="mb-10">
+      <video id="loveVideo" class="w-full max-h-[500px] mx-auto rounded-2xl shadow-lg" src="SituationshipsAreAllYouLiveFor.mp4"></video>
+
+      <!-- Video Controls -->
+      <div class="flex justify-center gap-6 mt-4">
+        <button id="playBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg">▶ Play</button>
+        <button id="pauseBtn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow-lg">⏸ Pause</button>
+        <a href="SituationshipsAreAllYouLiveFor.mp4" download class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg">⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- Heading -->
     <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12">
       In case you are...
     </h1>
 
+    <!-- Mood Buttons -->
     <div class="button-grid mb-10 sm:mb-16">
       <button class="mood-btn" data-action="upset">Upset</button>
       <button class="mood-btn" data-action="lonely">Lonely</button>
@@ -126,8 +141,9 @@
       ]
     };
 
+    // 👉 PLACE YOUR URL LIST HERE 👇
     const hornyUrls = [
-		    "https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her",
+            "https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her",
             "https://www.xvideos.com/video.uilvkfd0d06/blacked_diamond_has_secret_affair_with_her_bestie_s_hot_bf",
             "https://www.xvideos.com/video.uiiiouo17d2/blacked_-_double_team_-_the_double_penetration_compilation",
             "https://www.xvideos.com/video.ihcpembe974/riding_on_the_s_roll",
@@ -183,7 +199,7 @@
             "https://www.eporner.com/video-l145JY0pZH6/giant-black-cocks-pmv/", 
             "https://www.eporner.com/video-SBSZ1z6ThS6/let-bbc-penetrate-your-mind-joi/",
             "https://www.eporner.com/video-viJjFOVcToO/pmv-huge-dicks/",
-	]; // safe default (empty)
+    ];
 
     const animations = [
       'animate__fadeInUp','animate__fadeInDown','animate__fadeInLeft','animate__fadeInRight',
@@ -240,6 +256,11 @@
     document.querySelectorAll('button[data-action]').forEach(button => {
       button.className = 'mood-btn relative overflow-hidden z-10 py-3 px-6 sm:py-4 sm:px-8 text-base sm:text-lg font-semibold tracking-wider uppercase rounded-full border-2 border-white/60 bg-transparent text-white transition-all duration-300 ease-in-out hover:border-white hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-100';
     });
+
+    // Video Controls
+    const video = document.getElementById('loveVideo');
+    document.getElementById('playBtn').addEventListener('click', () => video.play());
+    document.getElementById('pauseBtn').addEventListener('click', () => video.pause());
   </script>
 </body>
 </html>
