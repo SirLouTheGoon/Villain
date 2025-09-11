@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>For My Babygirl, Maggie</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -27,60 +27,56 @@
       );
     }
 
-    .font-heading {
-      font-family: 'Playfair Display', serif;
-    }
-
-    .font-body {
-      font-family: 'Lato', sans-serif;
-    }
+    .font-heading { font-family: 'Playfair Display', serif; }
+    .font-body { font-family: 'Lato', sans-serif; }
 
     /* Shine effect */
     .mood-btn::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
       background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
       transition: left 0.7s cubic-bezier(0.23,1,0.32,1);
     }
-    .mood-btn:hover::before {
-      left: 100%;
-    }
+    .mood-btn:hover::before { left: 100%; }
 
-    /* Grid layout */
+    /* Grid layout (stack on mobile) */
     .button-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 1rem;
       max-width: 500px;
       margin: 0 auto;
     }
-    .button-grid .mood-btn:nth-child(3) {
-      grid-column: 1 / span 2;
+    @media (min-width: 640px) {
+      .button-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .button-grid .mood-btn:nth-child(3) {
+        grid-column: 1 / span 2;
+      }
     }
   </style>
 </head>
-<body class="font-body min-h-screen flex items-center justify-center text-white p-4 sm:p-6">
+<body class="font-body min-h-screen w-full overflow-x-hidden flex items-center justify-center text-white p-4 sm:p-6">
 
   <main class="w-full max-w-4xl mx-auto text-center">
 
     <!-- Video Section -->
     <div class="mb-10">
-      <video id="loveVideo" class="w-full max-h-[500px] mx-auto rounded-2xl shadow-lg" src="SituationshipsAreAllYouLiveFor.mp4"></video>
+      <video id="loveVideo" class="w-full max-h-[500px] mx-auto rounded-2xl shadow-lg" src="SituationshipsAreAllYouLiveFor.mp4" playsinline></video>
 
       <!-- Video Controls -->
-      <div class="flex justify-center gap-6 mt-4">
-        <button id="playBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg">▶ Play</button>
-        <button id="pauseBtn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow-lg">⏸ Pause</button>
-        <a href="SituationshipsAreAllYouLiveFor.mp4" download class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg">⬇ Download</a>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-4">
+        <button id="playBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">▶ Play</button>
+        <button id="pauseBtn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⏸ Pause</button>
+        <a href="SituationshipsAreAllYouLiveFor.mp4" download class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⬇ Download</a>
       </div>
     </div>
 
     <!-- Heading -->
-    <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12">
+    <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12">
       In case you are...
     </h1>
 
@@ -93,7 +89,7 @@
       <button class="mood-btn" data-action="motivation">Needing motivation</button>
     </div>
 
-    <div id="result-display" class="min-h-[150px] flex items-center justify-center opacity-0"></div>
+    <div id="result-display" class="min-h-[150px] flex items-center justify-center opacity-0 px-2"></div>
   </main>
 
   <a href="https://viper-open-centrally.ngrok-free.app/" class="block text-center mt-6 underline">
