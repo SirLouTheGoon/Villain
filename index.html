@@ -1,142 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>For My Babygirl, Maggie</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>For, Maggie </title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-  <style>
-    body {
-      background-color: #12080e;
-      background-image: linear-gradient(to bottom,
-        #d7a7c7 0%, #d095bc 5%, #c884b1 10%, #c67fae 15%, #c072a6 20%,
-        #b8619b 25%, #b04f90 30%, #9e4781 40%, #8d3f73 50%, #7b3765 60%,
-        #6a2f56 70%, #582848 80%, #462039 85%, #35182b 90%, #23101d 95%,
-        #12080e 98%, #000000 100%
-      );
-    }
+    <style>
+        body {
+            background-color: #12080e;
+            background-image: linear-gradient(to bottom,
+                #d7a7c7 0%, #d095bc 5%, #c884b1 10%, #c67fae 15%, #c072a6 20%,
+                #b8619b 25%, #b04f90 30%, #9e4781 40%, #8d3f73 50%, #7b3765 60%,
+                #6a2f56 70%, #582848 80%, #462039 85%, #35182b 90%, #23101d 95%,
+                #12080e 98%, #000000 100%
+            );
+        }
 
-    .font-heading { font-family: 'Playfair Display', serif; }
-    .font-body { font-family: 'Lato', sans-serif; }
+        .font-heading { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Lato', sans-serif; }
 
-    /* Shine effect */
-    .mood-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.7s cubic-bezier(0.23,1,0.32,1);
-    }
-    .mood-btn:hover::before { left: 100%; }
+        /* Shine effect */
+        .mood-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s cubic-bezier(0.23,1,0.32,1);
+        }
+        .mood-btn:hover::before { left: 100%; }
 
-    /* Grid layout (stack on mobile) */
-    .button-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    @media (min-width: 640px) {
-      .button-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .button-grid .mood-btn:nth-child(3) {
-        grid-column: 1 / span 2;
-      }
-    }
-  </style>
+        /* Grid layout (stack on mobile) */
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        @media (min-width: 640px) {
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .button-grid .mood-btn:nth-child(3) {
+                grid-column: 1 / span 2;
+            }
+        }
+    </style>
 </head>
-<body class="font-body min-h-screen w-full overflow-x-hidden flex items-center justify-center text-white p-4 sm:p-6">
+<body class="font-body min-h-screen w-full overflow-x-hidden flex flex-col items-center justify-center text-white p-4 sm:p-6">
 
-  <main class="w-full max-w-4xl mx-auto text-center">
+    <main class="w-full max-w-4xl mx-auto text-center">
 
-    <!-- Video Section -->
-    <div class="mb-10">
-      <video id="loveVideo" class="w-full max-h-[500px] mx-auto rounded-2xl shadow-lg" src="SituationshipsAreAllYouLiveFor.mp4" playsinline></video>
+        <a href="images.html" class="block w-full text-center px-8 py-4 mb-10 text-xl font-bold rounded-full transition-all duration-300 transform hover:scale-105" style="background: linear-gradient(to right, #d7a7c7, #b8619b); box-shadow: 0 4px 15px rgba(215, 167, 199, 0.4);">
+            Click here
+        </a>
 
-      <!-- Video Controls -->
-      <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-4">
-        <button id="playBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">▶ Play</button>
-        <button id="pauseBtn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⏸ Pause</button>
-        <a href="SituationshipsAreAllYouLiveFor.mp4" download class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⬇ Download</a>
-      </div>
-    </div>
+        <div class="mb-10">
+            <video id="loveVideo" class="w-full max-h-[500px] mx-auto rounded-2xl shadow-lg" src="SituationshipsAreAllYouLiveFor.mp4" playsinline></video>
 
-    <!-- Heading -->
-    <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12">
-      The dates, the times, the balancing multiple dudes at a time, i mean no wonder you dump me every week, did i ever mean anything to you. oh well, 
-	In case you are...
-    </h1>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-4">
+                <button id="playBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">▶ Play</button>
+                <button id="pauseBtn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⏸ Pause</button>
+                <a href="SituationshipsAreAllYouLiveFor.mp4" download class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⬇ Download</a>
+            </div>
+        </div>
 
-    <!-- Mood Buttons -->
-    <div class="button-grid mb-10 sm:mb-16">
-      <button class="mood-btn" data-action="upset">Upset</button>
-      <button class="mood-btn" data-action="lonely">Lonely</button>
-      <button class="mood-btn" data-action="horny">Horny</button>
-      <button class="mood-btn" data-action="crash">About to crash out</button>
-      <button class="mood-btn" data-action="motivation">Needing motivation</button>
-    </div>
+        <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12">
+            The dates, the times, the balancing multiple dudes at a time, i mean no wonder you dump me every week, did i ever mean anything to you. oh well, 
+            In case you are...
+        </h1>
 
-    <div id="result-display" class="min-h-[150px] flex items-center justify-center opacity-0 px-2"></div>
-  </main>
+        <div class="button-grid mb-10 sm:mb-16">
+            <button class="mood-btn" data-action="upset">Upset</button>
+            <button class="mood-btn" data-action="lonely">Lonely</button>
+            <button class="mood-btn" data-action="horny">Horny</button>
+            <button class="mood-btn" data-action="crash">About to crash out</button>
+            <button class="mood-btn" data-action="motivation">Needing motivation</button>
+        </div>
 
-  <a href="https://viper-open-centrally.ngrok-free.app/" class="block text-center mt-6 underline">
-    Arthur's Playground
-  </a>
+        <div id="result-display" class="min-h-[150px] flex items-center justify-center opacity-0 px-2"></div>
+    </main>
 
-  <script>
-    const contentPools = {
-      upset: [
-        "My Soulmate, whatever is wrong, just know that my arms are a safe place for you, always. Let me hold you until it's better.",
-        "I'm so sorry you're feeling upset, babygirl. Remember that every storm passes. You've gotten through everything life has thrown at you, and you'll get through this too. I'm right here.",
-        "Your feelings are valid, my love. Don't ever think you have to hide them. Talk to me, let it out. We're a team, you and me against the world.",
-        "Roses are red, violets are blue, I hate seeing you sad, so what can I do? Seriously, tell me how I can make you smile.",
-        "Hey, remember that time with Chandler at the park? Think of his little laugh. I hope that brings a little light to your heart right now. I love you.",
-        "It's okay to not be okay. Just know that you're the strongest woman I know, and my love for you is bigger than any problem."
-      ],
-      lonely: [
-        "Even if you feel alone in a room, just know you're never alone in my heart. I'm always thinking of you, baby.",
-        "Five years, on and off, but one thing is constant: you're my person. I'm always just a text or a call away. You're never truly alone.",
-        "I may not be beside you right now, but close your eyes and feel my love wrapping around you like a warm blanket. I'm with you in spirit, always.",
-        "Are you a Wi-Fi signal? Because I'm feeling a strong connection, even from a distance. Missing you, my love.",
-        "Remember, it's me, you, and Chandler. Our little family of three. A perfect team. You are the center of our universe, never forget that.",
-        "Loneliness is just a feeling, not a fact. The fact is, you are loved so deeply by me and our little mans."
-      ],
-      crash: [
-        "Hey, I am on your side, and I always want to help. Never do I ever want things to be more challenging for you. It's okay to hang up the cape. You give 110% every single day. Please, let yourself rest. The world can wait. I've got you.",
-        "You're allowed to be tired. You're allowed to feel like you're at your limit. You're human, my amazing, hardworking human. Let me take some of the weight.",
-        "Baby, you are the engine that keeps our family running. But even the strongest engines need to refuel. Please take a moment for yourself. You've more than earned it.",
-        "Stop, drop, and let me pamper you. You've done enough. Your only job right now is to breathe and let me take care of everything.",
-        "I see how hard you're working, how much you're juggling. It's okay to drop a ball or two. I'll be there to help you pick them up. Always."
-      ],
-      motivation: [
-        "I know the hours are long and the work is hard, but think about the beautiful future we're building for our family. Every bit of effort is for us, and I'm so grateful.",
-        "Remember your 'why'. It's for that little boy with your eyes. It's for the home we're creating. It's for the love that holds us all together. You've got this.",
-        "You are a force of nature, Maggie. You can achieve anything you set your mind to. I believe in you more than words can say.",
-        "Just a reminder from your biggest fan: You're brilliant, you're capable, and you're going to crush it. I'm so incredibly proud to be your man.",
-        "Look how far you've come. Look at everything you've already accomplished. You're an inspiration, baby. Keep shining.",
-        "Let's do this. Let's build our empire, you and me. One day at a time. I'm right here with you, every step of the way.",
-        "Doubting your worth? Maggie, you are priceless. To me, to Chandler, to this family... you are everything. Your worth is infinite.",
-        "Don't you ever, for one second, doubt the incredible woman you are. You're a phenomenal mother, a loving partner, and the hardest worker I know. You are more than enough.",
-        "If you could see yourself through my eyes, you'd see pure magic. You built a home for us, a life for our son. That's a legacy of immeasurable worth.",
-        "You're not just 'one in a million,' babygirl. You're a once-in-a-lifetime. My once-in-a-lifetime.",
-        "Your value isn't measured by your productivity or how you feel on a tough day. It's in your heart, your laugh, the way you love our son. It's immeasurable.",
-        "Quote from me to you: 'She is worth more than rubies.' And it's true. You are my greatest treasure."
-      ]
-    };
+    <a href="https://viper-open-centrally.ngrok-free.app/" class="block text-center mt-6 underline">
+        Arthur's Playground
+    </a>
+
+    <script>
+        const contentPools = {
+            upset: [
+                "My Soulmate, whatever is wrong, just know that my arms are a safe place for you, always. Let me hold you until it's better.",
+                "I'm so sorry you're feeling upset, babygirl. Remember that every storm passes. You've gotten through everything life has thrown at you, and you'll get through this too. I'm right here.",
+                "Your feelings are valid, my love. Don't ever think you have to hide them. Talk to me, let it out. We're a team, you and me against the world.",
+                "Roses are red, violets are blue, I hate seeing you sad, so what can I do? Seriously, tell me how I can make you smile.",
+                "Hey, remember that time with Chandler at the park? Think of his little laugh. I hope that brings a little light to your heart right now. I love you.",
+                "It's okay to not be okay. Just know that you're the strongest woman I know, and my love for you is bigger than any problem."
+            ],
+            lonely: [
+                "Even if you feel alone in a room, just know you're never alone in my heart. I'm always thinking of you, baby.",
+                "Five years, on and off, but one thing is constant: you're my person. I'm always just a text or a call away. You're never truly alone.",
+                "I may not be beside you right now, but close your eyes and feel my love wrapping around you like a warm blanket. I'm with you in spirit, always.",
+                "Are you a Wi-Fi signal? Because I'm feeling a strong connection, even from a distance. Missing you, my love.",
+                "Remember, it's me, you, and Chandler. Our little family of three. A perfect team. You are the center of our universe, never forget that.",
+                "Loneliness is just a feeling, not a fact. The fact is, you are loved so deeply by me and our little mans."
+            ],
+            crash: [
+                "Hey, I am on your side, and I always want to help. Never do I ever want things to be more challenging for you. It's okay to hang up the cape. You give 110% every single day. Please, let yourself rest. The world can wait. I've got you.",
+                "You're allowed to be tired. You're allowed to feel like you're at your limit. You're human, my amazing, hardworking human. Let me take some of the weight.",
+                "Baby, you are the engine that keeps our family running. But even the strongest engines need to refuel. Please take a moment for yourself. You've more than earned it.",
+                "Stop, drop, and let me pamper you. You've done enough. Your only job right now is to breathe and let me take care of everything.",
+                "I see how hard you're working, how much you're juggling. It's okay to drop a ball or two. I'll be there to help you pick them up. Always."
+            ],
+            motivation: [
+                "I know the hours are long and the work is hard, but think about the beautiful future we're building for our family. Every bit of effort is for us, and I'm so grateful.",
+                "Remember your 'why'. It's for that little boy with your eyes. It's for the home we're creating. It's for the love that holds us all together. You've got this.",
+                "You are a force of nature, Maggie. You can achieve anything you set your mind to. I believe in you more than words can say.",
+                "Just a reminder from your biggest fan: You're brilliant, you're capable, and you're going to crush it. I'm so incredibly proud to be your man.",
+                "Look how far you've come. Look at everything you've already accomplished. You're an inspiration, baby. Keep shining.",
+                "Let's do this. Let's build our empire, you and me. One day at a time. I'm right here with you, every step of the way.",
+                "Doubting your worth? Maggie, you are priceless. To me, to Chandler, to this family... you are everything. Your worth is infinite.",
+                "Don't you ever, for one second, doubt the incredible woman you are. You're a phenomenal mother, a loving partner, and the hardest worker I know. You are more than enough.",
+                "If you could see yourself through my eyes, you'd see pure magic. You built a home for us, a life for our son. That's a legacy of immeasurable worth.",
+                "You're not just 'one in a million,' babygirl. You're a once-in-a-lifetime. My once-in-a-lifetime.",
+                "Your value isn't measured by your productivity or how you feel on a tough day. It's in your heart, your laugh, the way you love our son. It's immeasurable.",
+                "Quote from me to you: 'She is worth more than rubies.' And it's true. You are my greatest treasure."
+            ]
+        };
 
     // 👉 PLACE YOUR URL LIST HERE 👇
     const hornyUrls = [
@@ -196,68 +193,68 @@
             "https://www.eporner.com/video-l145JY0pZH6/giant-black-cocks-pmv/", 
             "https://www.eporner.com/video-SBSZ1z6ThS6/let-bbc-penetrate-your-mind-joi/",
             "https://www.eporner.com/video-viJjFOVcToO/pmv-huge-dicks/",
-    ];
+        ];
 
-    const animations = [
-      'animate__fadeInUp','animate__fadeInDown','animate__fadeInLeft','animate__fadeInRight',
-      'animate__zoomIn','animate__bounceIn','animate__lightSpeedInRight','animate__rotateIn',
-      'animate__jackInTheBox','animate__rollIn'
-    ];
+        const animations = [
+            'animate__fadeInUp','animate__fadeInDown','animate__fadeInLeft','animate__fadeInRight',
+            'animate__zoomIn','animate__bounceIn','animate__lightSpeedInRight','animate__rotateIn',
+            'animate__jackInTheBox','animate__rollIn'
+        ];
 
-    const buttonContainer = document.querySelector('.button-grid');
-    const resultDisplay = document.getElementById('result-display');
+        const buttonContainer = document.querySelector('.button-grid');
+        const resultDisplay = document.getElementById('result-display');
 
-    function getRandomItem(arr) {
-      return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
-    }
-
-    function showResult(action) {
-      const contentArray = contentPools[action];
-      if (!contentArray) return;
-
-      const message = getRandomItem(contentArray);
-      const animation = getRandomItem(animations);
-
-      const p = document.createElement('p');
-      p.className = `font-heading text-2xl sm:text-3xl italic leading-relaxed max-w-2xl animate__animated ${animation}`;
-      p.innerHTML = message;
-
-      resultDisplay.innerHTML = '';
-      resultDisplay.appendChild(p);
-      resultDisplay.classList.remove('opacity-0');
-
-      // restart animation
-      void p.offsetWidth;
-    }
-
-    buttonContainer.addEventListener('click', (e) => {
-      const button = e.target.closest('button[data-action]');
-      if (!button) return;
-
-      const action = button.dataset.action;
-
-      if (action === 'horny') {
-        const randomUrl = getRandomItem(hornyUrls);
-        if (randomUrl) {
-          window.open(randomUrl, '_blank');
-        } else {
-          alert("No horny URLs are set yet 😅");
+        function getRandomItem(arr) {
+            return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
         }
-        return;
-      }
 
-      showResult(action);
-    });
+        function showResult(action) {
+            const contentArray = contentPools[action];
+            if (!contentArray) return;
 
-    // Add Tailwind styles to buttons
-    document.querySelectorAll('button[data-action]').forEach(button => {
-      button.className = 'mood-btn relative overflow-hidden z-10 py-3 px-6 sm:py-4 sm:px-8 text-base sm:text-lg font-semibold tracking-wider uppercase rounded-full border-2 border-white/60 bg-transparent text-white transition-all duration-300 ease-in-out hover:border-white hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-100';
-    });
+            const message = getRandomItem(contentArray);
+            const animation = getRandomItem(animations);
 
-    // Video Controls
-    const video = document.getElementById('loveVideo');
-    document.getElementById('playBtn').addEventListener('click', () => video.play());
-    document.getElementById('pauseBtn').addEventListener('click', () => video.pause());
-  </script>
+            const p = document.createElement('p');
+            p.className = `font-heading text-2xl sm:text-3xl italic leading-relaxed max-w-2xl animate__animated ${animation}`;
+            p.innerHTML = message;
+
+            resultDisplay.innerHTML = '';
+            resultDisplay.appendChild(p);
+            resultDisplay.classList.remove('opacity-0');
+
+            // restart animation
+            void p.offsetWidth;
+        }
+
+        buttonContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('button[data-action]');
+            if (!button) return;
+
+            const action = button.dataset.action;
+
+            if (action === 'horny') {
+                const randomUrl = getRandomItem(hornyUrls);
+                if (randomUrl) {
+                    window.open(randomUrl, '_blank');
+                } else {
+                    alert("No horny URLs are set yet 😅");
+                }
+                return;
+            }
+
+            showResult(action);
+        });
+
+        // Add Tailwind styles to buttons
+        document.querySelectorAll('button[data-action]').forEach(button => {
+            button.className = 'mood-btn relative overflow-hidden z-10 py-3 px-6 sm:py-4 sm:px-8 text-base sm:text-lg font-semibold tracking-wider uppercase rounded-full border-2 border-white/60 bg-transparent text-white transition-all duration-300 ease-in-out hover:border-white hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-100';
+        });
+
+        // Video Controls
+        const video = document.getElementById('loveVideo');
+        document.getElementById('playBtn').addEventListener('click', () => video.play());
+        document.getElementById('pauseBtn').addEventListener('click', () => video.pause());
+    </script>
 </body>
 </html>
