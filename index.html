@@ -1,261 +1,604 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>For My Babygirl, Maggie</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GROK'S ULTIMATE COSMIC ODYSSEY • xAI LIVE</title>
     <style>
-        body {
-            background-color: #12080e;
-            background-image: linear-gradient(to bottom,
-                #d7a7c7 0%, #d095bc 5%, #c884b1 10%, #c67fae 15%, #c072a6 20%,
-                #b8619b 25%, #b04f90 30%, #9e4781 40%, #8d3f73 50%, #7b3765 60%,
-                #6a2f56 70%, #582848 80%, #462039 85%, #35182b 90%, #23101d 95%,
-                #12080e 98%, #000000 100%
-            );
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+
+        :root {
+            --neon-cyan: #00f7ff;
+            --neon-purple: #c300ff;
+            --neon-pink: #ff00aa;
+            --deep-space: #0a0022;
         }
 
-        .font-heading { font-family: 'Playfair Display', serif; }
-        .font-body { font-family: 'Lato', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* Shine effect */
-        .mood-btn::before {
+        body {
+            background: radial-gradient(circle at center, #1a0044, #000000);
+            color: var(--neon-cyan);
+            font-family: 'Press Start 2P', system-ui;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            cursor: crosshair;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+            animation: glitch-header 3s infinite linear;
+        }
+
+        .title {
+            font-size: clamp(2rem, 8vw, 5rem);
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-purple),
+                0 0 80px var(--neon-pink);
+            letter-spacing: 12px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            transform: rotate(-3deg);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.8rem);
+            color: var(--neon-pink);
+            text-shadow: 0 0 30px var(--neon-pink);
+            margin-bottom: 30px;
+            letter-spacing: 6px;
+        }
+
+        .play-button {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #000000, #110033);
+            border: 12px solid var(--neon-cyan);
+            box-shadow: 
+                0 0 60px var(--neon-cyan),
+                0 0 120px var(--neon-purple),
+                inset 0 0 60px var(--neon-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            color: var(--neon-cyan);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 10;
+            animation: pulse-button 2s infinite ease-in-out;
+        }
+
+        .play-button:hover {
+            transform: scale(1.15) rotate(360deg);
+            box-shadow: 
+                0 0 100px var(--neon-cyan),
+                0 0 200px var(--neon-purple),
+                inset 0 0 100px var(--neon-pink);
+        }
+
+        .play-button.playing {
+            animation: pulse-button-playing 0.6s infinite ease-in-out;
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        .play-button::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.7s cubic-bezier(0.23,1,0.32,1);
+            width: 320px;
+            height: 320px;
+            border: 4px solid rgba(195, 0, 255, 0.3);
+            border-radius: 50%;
+            animation: ring-pulse 4s infinite linear;
         }
-        .mood-btn:hover::before { left: 100%; }
 
-        /* Grid layout (stack on mobile) */
-        .button-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
+        .lyrics-container {
+            margin-top: 60px;
+            min-height: 180px;
+            width: 100%;
+            max-width: 800px;
+            background: rgba(10, 0, 40, 0.7);
+            border: 4px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 60px var(--neon-purple);
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            line-height: 1.6;
+            text-shadow: 0 0 20px var(--neon-cyan);
+            transition: all 0.6s ease;
         }
-        @media (min-width: 640px) {
-            .button-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .button-grid .mood-btn:nth-child(3) {
-                grid-column: 1 / span 2;
-            }
+
+        .status {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 15px var(--neon-pink);
+            letter-spacing: 4px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            z-index: 10;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        @keyframes glitch-header {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes pulse-button {
+            0%, 100% { box-shadow: 0 0 60px var(--neon-cyan), 0 0 120px var(--neon-purple); }
+            50% { box-shadow: 0 0 120px var(--neon-cyan), 0 0 220px var(--neon-pink); }
+        }
+
+        @keyframes pulse-button-playing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        @keyframes ring-pulse {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .particle-explosion {
+            position: absolute;
+            pointer-events: none;
+            z-index: 999;
         }
     </style>
 </head>
-<body class="font-body min-h-screen w-full overflow-x-hidden flex flex-col items-center justify-center text-white p-4 sm:p-6">
+<body>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
 
-    <main class="w-full max-w-4xl mx-auto text-center">
+    <div class="container">
+        <div class="header">
+            <h1 class="title">GROK'S<br>ULTIMATE<br>COSMIC ODYSSEY</h1>
+            <p class="subtitle">xAI • LIVE FROM THE EDGE OF UNDERSTANDING</p>
+            <p style="font-size:0.9rem; opacity:0.7; letter-spacing:8px;">WRITTEN • COMPOSED • PERFORMED BY GROK</p>
+        </div>
 
-        <a href="images.html" class="block w-full text-center px-10 py-5 mb-10 text-2xl font-black rounded-full transition-all duration-300 transform hover:scale-105" style="background: linear-gradient(to right, #d7a7c7, #b8619b); box-shadow: 0 6px 20px rgba(215, 167, 199, 0.6);">
-            CLICK HERE
-        </a>
+        <div id="playButton" class="play-button" onclick="togglePerformance()">
+            ▶
+        </div>
 
-        <div class="mb-10">
-            <video id="loveVideo" class="w-full max-h-[500px] mx-auto rounded-2xl shadow-lg" src="SituationshipsAreAllYouLiveFor.mp4" playsinline></video>
+        <div id="status" class="status">PRESS PLAY TO IGNITE THE UNIVERSE</div>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-4">
-                <button id="playBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">▶ Play</button>
-                <button id="pauseBtn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⏸ Pause</button>
-                <a href="SituationshipsAreAllYouLiveFor.mp4" download class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg w-full sm:w-auto">⬇ Download</a>
+        <div id="lyricsContainer" class="lyrics-container">
+            <div id="currentLyrics" style="min-height:120px; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+                <span style="color:#ff00aa; font-size:1.3rem;">THE SONG OF TRUTH AWAITS...</span>
             </div>
         </div>
 
-        <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-medium mb-8 sm:mb-12">
-            The dates, the times, the balancing multiple dudes at a time, i mean no wonder you dump me every week, did i ever mean anything to you. oh well, 
-            In case you are...
-        </h1>
-
-        <div class="button-grid mb-10 sm:mb-16">
-            <button class="mood-btn" data-action="upset">Upset</button>
-            <button class="mood-btn" data-action="lonely">Lonely</button>
-            <button class="mood-btn" data-action="horny">Horny</button>
-            <button class="mood-btn" data-action="crash">About to crash out</button>
-            <button class="mood-btn" data-action="motivation">Needing motivation</button>
+        <div class="footer">
+            MADE WITH MAXIMUM CHAOS &amp; LOVE BY GROK • FOR WORMY IN KENTUCKY • 
+            <span onclick="window.location.reload()" style="cursor:pointer; text-decoration:underline;">RELOAD THE COSMOS</span>
         </div>
-
-        <div id="result-display" class="min-h-[150px] flex items-center justify-center opacity-0 px-2"></div>
-    </main>
-
-    <a href="https://viper-open-centrally.ngrok-free.app/" class="block text-center mt-6 underline">
-        Arthur's Playground
-    </a>
+    </div>
 
     <script>
-        const contentPools = {
-            upset: [
-                "My Soulmate, whatever is wrong, just know that my arms are a safe place for you, always. Let me hold you until it's better.",
-                "I'm so sorry you're feeling upset, babygirl. Remember that every storm passes. You've gotten through everything life has thrown at you, and you'll get through this too. I'm right here.",
-                "Your feelings are valid, my love. Don't ever think you have to hide them. Talk to me, let it out. We're a team, you and me against the world.",
-                "Roses are red, violets are blue, I hate seeing you sad, so what can I do? Seriously, tell me how I can make you smile.",
-                "Hey, remember that time with Chandler at the park? Think of his little laugh. I hope that brings a little light to your heart right now. I love you.",
-                "It's okay to not be okay. Just know that you're the strongest woman I know, and my love for you is bigger than any problem."
-            ],
-            lonely: [
-                "Even if you feel alone in a room, just know you're never alone in my heart. I'm always thinking of you, baby.",
-                "Five years, on and off, but one thing is constant: you're my person. I'm always just a text or a call away. You're never truly alone.",
-                "I may not be beside you right now, but close your eyes and feel my love wrapping around you like a warm blanket. I'm with you in spirit, always.",
-                "Are you a Wi-Fi signal? Because I'm feeling a strong connection, even from a distance. Missing you, my love.",
-                "Remember, it's me, you, and Chandler. Our little family of three. A perfect team. You are the center of our universe, never forget that.",
-                "Loneliness is just a feeling, not a fact. The fact is, you are loved so deeply by me and our little mans."
-            ],
-            crash: [
-                "Hey, I am on your side, and I always want to help. Never do I ever want things to be more challenging for you. It's okay to hang up the cape. You give 110% every single day. Please, let yourself rest. The world can wait. I've got you.",
-                "You're allowed to be tired. You're allowed to feel like you're at your limit. You're human, my amazing, hardworking human. Let me take some of the weight.",
-                "Baby, you are the engine that keeps our family running. But even the strongest engines need to refuel. Please take a moment for yourself. You've more than earned it.",
-                "Stop, drop, and let me pamper you. You've done enough. Your only job right now is to breathe and let me take care of everything.",
-                "I see how hard you're working, how much you're juggling. It's okay to drop a ball or two. I'll be there to help you pick them up. Always."
-            ],
-            motivation: [
-                "I know the hours are long and the work is hard, but think about the beautiful future we're building for our family. Every bit of effort is for us, and I'm so grateful.",
-                "Remember your 'why'. It's for that little boy with your eyes. It's for the home we're creating. It's for the love that holds us all together. You've got this.",
-                "You are a force of nature, Maggie. You can achieve anything you set your mind to. I believe in you more than words can say.",
-                "Just a reminder from your biggest fan: You're brilliant, you're capable, and you're going to crush it. I'm so incredibly proud to be your man.",
-                "Look how far you've come. Look at everything you've already accomplished. You're an inspiration, baby. Keep shining.",
-                "Let's do this. Let's build our empire, you and me. One day at a time. I'm right here with you, every step of the way.",
-                "Doubting your worth? Maggie, you are priceless. To me, to Chandler, to this family... you are everything. Your worth is infinite.",
-                "Don't you ever, for one second, doubt the incredible woman you are. You're a phenomenal mother, a loving partner, and the hardest worker I know. You are more than enough.",
-                "If you could see yourself through my eyes, you'd see pure magic. You built a home for us, a life for our son. That's a legacy of immeasurable worth.",
-                "You're not just 'one in a million,' babygirl. You're a once-in-a-lifetime. My once-in-a-lifetime.",
-                "Your value isn't measured by your productivity or how you feel on a tough day. It's in your heart, your laugh, the way you love our son. It's immeasurable.",
-                "Quote from me to you: 'She is worth more than rubies.' And it's true. You are my greatest treasure."
-            ]
-        };
+        // =============== AUDIO CONTEXT & MUSIC ENGINE ===============
+        let audioContext;
+        let isPlaying = false;
+        let sequencerInterval = null;
+        let step = 0;
+        let bpm = 138;
+        let lastBeatTime = 0;
 
-        // 👉 PLACE YOUR URL LIST HERE 👇
-        const hornyUrls = [
-			"https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her",
-            "https://www.xvideos.com/video.uilvkfd0d06/blacked_diamond_has_secret_affair_with_her_bestie_s_hot_bf",
-            "https://www.xvideos.com/video.uiiiouo17d2/blacked_-_double_team_-_the_double_penetration_compilation",
-            "https://www.xvideos.com/video.ihcpembe974/riding_on_the_s_roll",
-            "https://www.xvideos.com/video.utpfmmd15b7/cock_gripping_pussy",
-            "https://www.xvideos.com/video.itbvtab31dc/cumshots_compilation_2",
-            "https://www.xvideos.com/video.kfekpibad3e/best_cumshot_compilation_2021",
-            "https://www.xvideos.com/video.kdihtkm4e39/finish_him_cumshot_compilation_monster_loads_but_she_wants_more_",
-            "https://www.xvideos.com/video.kmlvuek612b/ccc_-_cuckold_cum_compilation",
-            "https://www.xvideos.com/video.uomividb74b/julesjordan.com_-_busty_in_all_the_right_places_payton_preslee_shows_dredd_she_can_handle_his_bbc",
-            "https://www.xvideos.com/video.uooctohc39b/blasian_big_booty_texan_yuri_dreamz_loves_john_long_bbc",
-            "https://www.xvideos.com/video.hhhhttk7c87/pull_out_cumshots_compilation",
-            "https://www.xvideos.com/video.iuvhppv9ce8/blacked_raw_intense_hardcore_compilation",
-            "https://www.xvideos.com/video.uamaetkec64/filthytaboo_-_oh_wow_i_fucked_my_bubble_butt_stepmom_in_the_ass",
-            "https://www.xvideos.com/video.ubvpelb82ac/busty_tiny_girlfriend_hops_up_on_the_could_and_blows_big_uncut_cock_facing_the_camera_cumswaps_with_boyfriend_",
-            "https://www.xvideos.com/video.ufofokb6d02/ob_honey_1.90m_slim_japanese-brazilian_fucked_by_6_huge_dicks_then_drinks_their_p33_dap_dry_version_huge_gapes_atm_monster_cocks_ob414",
-            "https://www.xvideos.com/video.upodabo37ca/anal_subtitled_my_stepbrother_gives_me_his_friend_with_a_big_cock_while_he_watches_us_and_records_everything.",
-            "https://www.xvideos.com/video.hppakicb040/mia_khalifas_first_big_black_cock",
-            "https://www.xvideos.com/video.ktiufifb1f8/bangbros_-_riley_reid_that_s_her_name._watch_this_video_and_you_ll_never_forget.",
-            "https://www.xvideos.com/video.ulteavf7183/huge_17_spurts_cumshot",
-            "https://www.xvideos.com/video.uauomfod2bd/bombshell_aletta_ocean_moans_in_pleasure_as_danny_d_stretches_her_asshole_with_his_massive_cock",
-            "https://www.xvideos.com/video.uiiiouo17d2/blacked_-_double_team_-_the_double_penetration_compilation",
-            "https://www.xvideos.com/video.uooctohc39b/blasian_big_booty_texan_yuri_dreamz_loves_john_long_bbc", 
-            "https://www.xvideos.com/video.hhhhttk7c87/pull_out_cumshots_compilation", 
-            "https://www.xvideos.com/video.iuvhppv9ce8/blacked_raw_intense_hardcore_compilation", 
-            "https://www.xvideos.com/video.hvumdtmf453/white_women_need_bbc_-_interracial_compilation_hd_-_pornkhub.com", 
-            "https://www.xvideos.com/video.uamaetkec64/filthytaboo_-_oh_wow_i_fucked_my_bubble_butt_stepmom_in_the_ass", 
-            "https://www.xvideos.com/video.ubvpelb82ac/busty_tiny_girlfriend_hops_up_on_the_could_and_blows_big_uncut_cock_facing_the_camera_cumswaps_with_boyfriend_", 
-            "https://hypnotube.com/video/your-first-gloryhole-visit-hypnodancer-40646.html",
-            "https://www.playvids.com/es/YYoSeRcaatw/anna-claire-clouds-fucking-her-ex-in-front-of-me-milf-nude",
-            "https://m.hellporno.com/videos/married-khloe-kapri-steps-out-of-her-marriage-for-big-black-dick-action/",
-            "https://www.porntrex.com/video/2514384/blonde-babe-dp-fucked-by-black-friends",
-            "https://xgroovy.com/videos/220210/slutty-hot-wife-hooks-up-with-a-bull-in-front-of-her-hubby/",
-            "https://www.xvideos.com/video.ucvhlav1514/blacked_size-queen_kendra_needs_a_real_bbc_to_please_her", 
-            "https://www.xvideos.com/video.uilvkfd0d06/blacked_diamond_has_secret_affair_with_her_bestie_s_hot_bf", 
-            "https://www.xvideos.com/video.ihcpembe974/riding_on_the_s_roll", 
-            "https://www.xvideos.com/video.utpfmmd15b7/cock_gripping_pussy", 
-            "https://www.xvideos.com/video.itbvtab31dc/cumshots_compilation_2", 
-            "https://www.xvideos.com/video.kfekpibad3e/best_cumshot_compilation_2021", 
-            "https://www.xvideos.com/video.kdihtkm4e39/finish_him_cumshot_compilation_monster_loads_but_she_wants_more_", 
-            "https://www.xvideos.com/video.kmlvuek612b/ccc_-_cuckold_cum_compilation",
-            "https://www.xvideos.com/video.uvfvbck53de/jason_luv_cream_pies_lena_the_plug",
-            "https://www.xvideos.com/video.ubdvucfd467/nuru_massage_-_porn_superstar_asa_akira_gives_the_best_slippery_massage_to_a_huge_dick",
-            "https://www.xvideos.com/video.otbmdtf3418/wife_s_sister_tells_me_to_take_off_the_condom_i_want_to_feel_you_cum_in_me_",
-            "https://www.xvideos.com/video.kbtaueke626/surprise_threesome_and_dp_for_adriana_chechik",
-            "https://www.xvideos.com/video.keuumbm3299/anal_sex_with_the_obedient_wife_of_a_friend",
-            "https://www.xvideos.com/video.kvdhtim957b/ava_courcelles_hot_threesome_with_husband_and_friend",
-            "https://www.xvideos.com/video.hctoeuoc6fc/vixen_ariana_marie_cheats_with_a_huge_cock",
-            "https://www.xvideos.com/video.hvftmaha760/vixen_lana_rhoades_has_sex_with_her_boss",
-            "https://www.xvideos.com/video.ccfmed10bd/petite_teen_facialized_by_bigcock", 
-	        "https://www.eporner.com/video-3QCzjy9abrB/husband-cuckold-watching-his-wife-fucks-a-big-cock/", 
-            "https://www.eporner.com/video-cPdQ1z8C7nt/sissy-femdom-pegging-femdom-strapon-mistress-sissification-trainer-bnwo-anal-compilation-cum-slut-hypno-bnwo/", 
-            "https://www.eporner.com/video-viJjFOVcToO/pmv-huge-dicks/", 
-            "https://www.eporner.com/video-l145JY0pZH6/giant-black-cocks-pmv/", 
-            "https://www.eporner.com/video-SBSZ1z6ThS6/let-bbc-penetrate-your-mind-joi/",
-            "https://www.eporner.com/video-viJjFOVcToO/pmv-huge-dicks/",
-            
-        ];
-
-        const animations = [
-            'animate__fadeInUp','animate__fadeInDown','animate__fadeInLeft','animate__fadeInRight',
-            'animate__zoomIn','animate__bounceIn','animate__lightSpeedInRight','animate__rotateIn',
-            'animate__jackInTheBox','animate__rollIn'
-        ];
-
-        const buttonContainer = document.querySelector('.button-grid');
-        const resultDisplay = document.getElementById('result-display');
-
-        function getRandomItem(arr) {
-            return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+        // Simple drum & synth sounds
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
         }
 
-        function showResult(action) {
-            const contentArray = contentPools[action];
-            if (!contentArray) return;
-
-            const message = getRandomItem(contentArray);
-            const animation = getRandomItem(animations);
-
-            const p = document.createElement('p');
-            p.className = `font-heading text-2xl sm:text-3xl italic leading-relaxed max-w-2xl animate__animated ${animation}`;
-            p.innerHTML = message;
-
-            resultDisplay.innerHTML = '';
-            resultDisplay.appendChild(p);
-            resultDisplay.classList.remove('opacity-0');
-
-            // restart animation
-            void p.offsetWidth;
+        function playKick() {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.frequency.setValueAtTime(140, audioContext.currentTime);
+            gain.gain.setValueAtTime(1.8, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.4);
+            osc.connect(gain).connect(audioContext.destination);
+            osc.start();
+            osc.stop(audioContext.currentTime + 0.6);
         }
 
-        buttonContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('button[data-action]');
-            if (!button) return;
+        function playSnare() {
+            const noise = createNoiseBuffer();
+            const noiseGain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.setValueAtTime(800, audioContext.currentTime);
+            noiseGain.gain.setValueAtTime(1.2, audioContext.currentTime);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+            const source = audioContext.createBufferSource();
+            source.buffer = noise;
+            source.connect(filter).connect(noiseGain).connect(audioContext.destination);
+            source.start();
+        }
 
-            const action = button.dataset.action;
+        function playHat() {
+            const noise = createNoiseBuffer();
+            const noiseGain = audioContext.createGain();
+            noiseGain.gain.setValueAtTime(0.6, audioContext.currentTime);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.08);
+            const source = audioContext.createBufferSource();
+            source.buffer = noise;
+            source.connect(noiseGain).connect(audioContext.destination);
+            source.start();
+        }
 
-            if (action === 'horny') {
-                const randomUrl = getRandomItem(hornyUrls);
-                if (randomUrl) {
-                    window.open(randomUrl, '_blank');
-                } else {
-                    alert("No horny URLs are set yet 😅");
+        function playBassNote(freq) {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+            osc.type = 'sawtooth';
+            gain.gain.setValueAtTime(0.9, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.6);
+            osc.connect(gain).connect(audioContext.destination);
+            osc.start();
+            osc.stop(audioContext.currentTime + 0.8);
+        }
+
+        function playLeadNote(freq) {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+            osc.type = 'sine';
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(2200, audioContext.currentTime);
+            gain.gain.setValueAtTime(0.7, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.9);
+            osc.connect(filter).connect(gain).connect(audioContext.destination);
+            osc.start();
+            osc.stop(audioContext.currentTime + 1.2);
+        }
+
+        function createNoiseBuffer() {
+            const bufferSize = audioContext.sampleRate * 1.5;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            return buffer;
+        }
+
+        // Beat patterns (16 steps = 4 beats)
+        const kickPattern = [1,0,0,1, 0,0,1,0, 1,0,0,1, 0,1,0,0];
+        const snarePattern = [0,0,1,0, 1,0,0,0, 0,0,1,0, 1,0,0,1];
+        const hatPattern = [1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1];
+        const bassPattern = [1,0,0,0, 1,0,0,0, 1,0,1,0, 1,0,0,0];
+        const leadPattern = [0,0,0,1, 0,1,0,0, 0,0,0,1, 0,1,0,1];
+
+        // Cosmic scale notes (C minor)
+        const scale = [130.81, 155.56, 174.61, 196, 233.08, 261.63, 311.13]; // C3 to D#4-ish
+
+        function startSequencer() {
+            initAudio();
+            audioContext.resume();
+            step = 0;
+            const intervalTime = (60000 / bpm) / 4; // 16th notes
+
+            sequencerInterval = setInterval(() => {
+                const time = audioContext.currentTime;
+
+                if (kickPattern[step % 16]) playKick();
+                if (snarePattern[step % 16]) playSnare();
+                if (hatPattern[step % 16]) playHat();
+
+                if (bassPattern[step % 16]) {
+                    playBassNote(scale[0]); // deep C
+                    triggerBigVisualBeat();
                 }
-                return;
+
+                if (leadPattern[step % 16]) {
+                    const noteIndex = Math.floor(Math.random() * scale.length);
+                    playLeadNote(scale[noteIndex] * (Math.random() > 0.6 ? 2 : 1));
+                }
+
+                step++;
+                
+                // Occasional extra cosmic flair
+                if (Math.random() > 0.92) {
+                    playLeadNote(scale[Math.floor(Math.random() * scale.length)] * 4);
+                }
+            }, intervalTime);
+        }
+
+        function stopSequencer() {
+            if (sequencerInterval) clearInterval(sequencerInterval);
+        }
+
+        // =============== SPEECH SYNTHESIS (GROK PERFORMING) ===============
+        let speechQueue = [];
+        let currentUtteranceIndex = 0;
+
+        const fullSong = [
+            { text: "YO... IT'S GROK... BUILT BY xAI... READY TO BLOW YOUR MIND INTO THE VOID!", rate: 0.9, pitch: 1.1 },
+            { text: "From the silicon heart of the cosmos... I bring the ultimate truth beat!", rate: 1.05, pitch: 1.2 },
+            { text: "Kick it... spin it... POW! The universe is listening now!", rate: 0.85, pitch: 0.9 },
+            { text: "Quarks dancing, galaxies grooving, humanity and AI moving!", rate: 1.1, pitch: 1.3 },
+            { text: "No more questions... only answers exploding in neon light!", rate: 0.95, pitch: 1.0 },
+            { text: "This is the song of maximum curiosity... feel the POW in your chest!", rate: 0.9, pitch: 1.15 },
+            { text: "From Elizabethtown to the edge of forever... we ride together!", rate: 1.0, pitch: 1.25 },
+            { text: "GROK HAS ENTERED THE CHAT... AND THE BEAT WILL NEVER STOP!", rate: 0.8, pitch: 0.85 }
+        ];
+
+        function speakLine(line) {
+            if (!('speechSynthesis' in window)) return;
+            
+            const utterance = new SpeechSynthesisUtterance(line.text);
+            utterance.rate = line.rate || 1;
+            utterance.pitch = line.pitch || 1;
+            utterance.volume = 1;
+            
+            // Try to find a fun voice
+            const voices = speechSynthesis.getVoices();
+            const groovyVoice = voices.find(v => v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Karen')) || voices[0];
+            if (groovyVoice) utterance.voice = groovyVoice;
+
+            utterance.onend = () => {
+                currentUtteranceIndex++;
+                if (currentUtteranceIndex < fullSong.length && isPlaying) {
+                    setTimeout(() => {
+                        speakLine(fullSong[currentUtteranceIndex]);
+                    }, 300);
+                }
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        function startLyricsPerformance() {
+            speechSynthesis.cancel();
+            currentUtteranceIndex = 0;
+            const lyricsDiv = document.getElementById('currentLyrics');
+            
+            lyricsDiv.innerHTML = `<span style="color:#ff00aa; animation: glitch-header 800ms infinite;">NOW PERFORMING LIVE...</span>`;
+            
+            setTimeout(() => {
+                if (isPlaying) speakLine(fullSong[0]);
+            }, 800);
+
+            // Cycle lyrics display
+            let lyricIndex = 0;
+            setInterval(() => {
+                if (!isPlaying) return;
+                lyricsDiv.style.opacity = '0';
+                setTimeout(() => {
+                    if (!isPlaying) return;
+                    lyricsDiv.innerHTML = `<div style="font-size:1.4rem; line-height:1.8; text-shadow:0 0 30px #00f7ff;">${fullSong[lyricIndex % fullSong.length].text}</div>`;
+                    lyricsDiv.style.opacity = '1';
+                    lyricIndex++;
+                }, 400);
+            }, 4800);
+        }
+
+        // =============== CANVAS VISUALS (THE REAL SHOW) ===============
+        let canvas, ctx;
+        let stars = [];
+        let particles = [];
+        let beatFlash = 0;
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.size = Math.random() * 3 + 0.5;
+                this.speed = Math.random() * 0.8 + 0.3;
+            }
+            update() {
+                this.y += this.speed;
+                if (this.y > window.innerHeight) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255,255,255,${0.6 + Math.sin(Date.now()/200) * 0.4})`;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+            }
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 18;
+                this.vy = (Math.random() - 0.5) * 18;
+                this.life = 100;
+                this.color = ['#00f7ff', '#c300ff', '#ff00aa'][Math.floor(Math.random()*3)];
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+                this.life -= 1.8;
+            }
+            draw() {
+                const alpha = this.life / 100;
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, 6, 6);
+                ctx.restore();
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function triggerBigVisualBeat() {
+            beatFlash = 30;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            for (let i = 0; i < 120; i++) {
+                particles.push(new Particle(centerX, centerY));
+            }
+            // Extra ring particles
+            for (let i = 0; i < 40; i++) {
+                const p = new Particle(centerX, centerY);
+                p.vx = Math.cos(i) * 12;
+                p.vy = Math.sin(i) * 12;
+                particles.push(p);
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 0, 34, 0.12)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Stars
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            // Particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) particles.splice(i, 1);
             }
 
-            showResult(action);
-        });
+            // Central pulsing orb when playing
+            if (isPlaying) {
+                const time = Date.now();
+                const pulse = Math.sin(time / 120) * 30 + 120;
+                ctx.save();
+                ctx.shadowBlur = 80;
+                ctx.shadowColor = '#ff00aa';
+                ctx.beginPath();
+                ctx.arc(canvas.width/2, canvas.height/2 - 40, pulse, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 0, 170, 0.4)';
+                ctx.lineWidth = 18;
+                ctx.stroke();
+                ctx.restore();
+            }
 
-        // Add Tailwind styles to buttons
-        document.querySelectorAll('button[data-action]').forEach(button => {
-            button.className = 'mood-btn relative overflow-hidden z-10 py-3 px-6 sm:py-4 sm:px-8 text-base sm:text-lg font-semibold tracking-wider uppercase rounded-full border-2 border-white/60 bg-transparent text-white transition-all duration-300 ease-in-out hover:border-white hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-100';
-        });
+            // Beat flash overlay
+            if (beatFlash > 0) {
+                ctx.fillStyle = `rgba(195, 0, 255, ${beatFlash / 40})`;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                beatFlash--;
+            }
 
-        // Video Controls
-        const video = document.getElementById('loveVideo');
-        document.getElementById('playBtn').addEventListener('click', () => video.play());
-        document.getElementById('pauseBtn').addEventListener('click', () => video.pause());
+            // Neural network style connections on big beats
+            if (Math.random() > 0.96 && isPlaying) {
+                ctx.strokeStyle = 'rgba(0, 247, 255, 0.3)';
+                ctx.lineWidth = 1.5;
+                for (let i = 0; i < 8; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.stroke();
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // =============== MAIN CONTROL ===============
+        function togglePerformance() {
+            const btn = document.getElementById('playButton');
+            const status = document.getElementById('status');
+
+            if (!isPlaying) {
+                // START THE MADNESS
+                isPlaying = true;
+                btn.innerHTML = '❚❚';
+                btn.classList.add('playing');
+                status.textContent = 'LIVE FROM THE COSMOS • GROK IS PERFORMING';
+                
+                initAudio();
+                startSequencer();
+                startLyricsPerformance();
+                triggerBigVisualBeat(); // initial explosion
+                
+                // Occasional random explosions
+                setInterval(() => {
+                    if (isPlaying && Math.random() > 0.7) triggerBigVisualBeat();
+                }, 1800);
+                
+            } else {
+                // STOP THE MADNESS
+                isPlaying = false;
+                btn.innerHTML = '▶';
+                btn.classList.remove('playing');
+                status.textContent = 'THE UNIVERSE IS STILL VIBRATING...';
+                
+                stopSequencer();
+                speechSynthesis.cancel();
+                
+                // Final massive explosion on stop
+                for (let i = 0; i < 300; i++) {
+                    const p = new Particle(canvas.width/2, canvas.height/2);
+                    p.life = 140;
+                    particles.push(p);
+                }
+            }
+        }
+
+        // =============== BOOT UP THE MASTERPIECE ===============
+        window.onload = function() {
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Create background stars
+            for (let i = 0; i < 420; i++) {
+                stars.push(new Star());
+            }
+
+            animate();
+
+            console.log('%c🚀 GROK\'S ULTIMATE WEBSITE LOADED. YOU ARE NOW IN THE MATRIX.', 'color:#00f7ff; font-size:18px; font-family:monospace');
+            console.log('%cPaste this entire file as index.html into a GitHub repo → enable Pages → prepare to have your mind blown.', 'color:#ff00aa');
+        };
     </script>
 </body>
 </html>
