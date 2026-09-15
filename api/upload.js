@@ -2,13 +2,13 @@ import { createClient } from '@supabase/supabase-js';
 import Busboy from 'busboy';
 import crypto from 'crypto';
 
-const supabase=createClient(process.env.SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY);
 const BUCKET='maggies-world';
 export const config={api:{bodyParser:false}};
 
 export default async function handler(req,res){
  if(req.method!=='POST')return res.status(405).json({error:'Method not allowed'});
  if(!process.env.SUPABASE_URL||!process.env.SUPABASE_SERVICE_ROLE_KEY)return res.status(503).json({error:'Supabase is not configured'});
+ const supabase=createClient(process.env.SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY);
  try{
   const bb=Busboy({headers:req.headers,limits:{fileSize:10*1024*1024,files:1,fields:2}});let fileBuf=null,fileType='',filename='',username='',caption='';
   bb.on('field',(n,v)=>{if(n==='username')username=v.trim().slice(0,32);if(n==='caption')caption=v.trim().slice(0,140)});
