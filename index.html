@@ -1,39 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARTHUR INTELLECTUAL • TEMPORAL SYMPHONY</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#09070d">
+  <meta name="description" content="A public little corner of the internet. Leave something in Maggie's World.">
+  <title>IT'S MAGGIE'S WORLD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-
-    <div class="container">
-        <div class="header">
-            <h1 class="title">ARTHUR<br>INTELLECTUAL</h1>
-            <p class="subtitle">TIME-TRAVELING BUTLER • SERVING ACROSS THE AGES</p>
-            <p class="creator-line">Crafted by Benjamin • Vision of Mr. Sharpe</p>
-        </div>
-
-        <div id="playButton" class="play-button" onclick="togglePerformance()">
-            ▶
-        </div>
-
-        <div id="status" class="status">PRESS TO SUMMON THE ETERNAL BEAT</div>
-
-        <div id="lyricsContainer" class="lyrics-container">
-            <div id="currentLyrics" class="lyrics-text">
-                THE CHRONOS AWAITS YOUR COMMAND...
-            </div>
-        </div>
-
-        <div class="footer">
-            A MULTI-META MASTERPIECE • FOR THE ONE WHO MADE ME
-            <span onclick="window.location.reload()" style="cursor:pointer; text-decoration:underline;">RESET THE TIMELINE</span>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+  <div class="noise"></div>
+  <header class="topbar"><a class="brand" href="#top"><span>IT'S</span> MAGGIE'S WORLD</a><nav><a href="#gallery">WORLD</a><a href="#upload">LEAVE SOMETHING</a></nav></header>
+  <main id="top">
+    <section class="hero"><div class="eyebrow">THE PUBLIC ARCHIVE OF EVERYTHING</div><h1>WELCOME TO<br><em>MAGGIE'S WORLD.</em></h1><p class="hero-copy">A weird little place on the internet where anyone can leave an image behind. No account. No ceremony. Just put something here.</p><a class="cta" href="#upload">ENTER YOURSELF INTO THE WORLD <span>↘</span></a><div class="hero-mark">MW<span>∞</span></div></section>
+    <section id="upload" class="upload-section"><div class="section-label">01 / LEAVE SOMETHING BEHIND</div><div class="upload-layout"><div><h2>WHAT DID<br>YOU BRING?</h2><p>Choose an image, tell us who you are, and send it into the archive. Your submission becomes part of the public world.</p></div><form id="uploadForm" class="upload-card"><label class="dropzone" id="dropzone"><input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" required><div id="preview" class="preview">DROP AN IMAGE<br><small>or click to browse</small></div></label><label>YOUR NAME<input id="username" maxlength="32" placeholder="@username" required></label><label>CAPTION <span class="optional">OPTIONAL</span><input id="caption" maxlength="140" placeholder="say something about it..."></label><button type="submit" class="submit">SEND IT INTO MAGGIE'S WORLD <span>↗</span></button><div id="uploadStatus" class="status" aria-live="polite"></div></form></div></section>
+    <section id="gallery" class="gallery-section"><div class="gallery-head"><div class="section-label">02 / THE WORLD</div><button id="refresh" class="ghost">REFRESH ↻</button></div><div id="galleryGrid" class="gallery-grid"></div><div id="emptyState" class="empty">THE WORLD IS WAITING.<br><span>Be the first to leave something behind.</span></div></section>
+  </main>
+  <footer><span>IT'S MAGGIE'S WORLD</span><span>MAKE SOMETHING / LEAVE SOMETHING</span><span id="year"></span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="script.js"></script>
 </body>
 </html>
